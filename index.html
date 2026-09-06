@@ -1,1559 +1,744 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>星闕娛樂｜ASTRIEL Entertainment</title>
-
-    <meta name="description"
-          content="星闕娛樂 ASTRIEL Entertainment。讓被看見，成為下一次看見別人的理由。">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family:
-                "Noto Serif TC",
-                "Microsoft JhengHei",
-                "PingFang TC",
-                serif;
-
-            background:
-                radial-gradient(circle at 50% 20%, #172653 0%, #080d21 45%, #03050d 100%);
-
-            color: #f7f3ea;
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        :root {
-            --gold: #e8c875;
-            --light-gold: #f3dda0;
-            --deep-blue: #050817;
-            --navy: #0b1230;
-            --white: #f7f3ea;
-            --gray: #b9bed0;
-        }
-
-        /* 星空背景 */
-
-        .stars,
-        .stars2 {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .stars {
-            background-image:
-                radial-gradient(circle, rgba(255,255,255,.75) 1px, transparent 1px);
-
-            background-size: 70px 70px;
-            opacity: .18;
-        }
-
-        .stars2 {
-            background-image:
-                radial-gradient(circle, rgba(232,200,117,.9) 1px, transparent 1px);
-
-            background-size: 130px 130px;
-            background-position: 30px 20px;
-            opacity: .12;
-
-            animation: starMove 35s linear infinite;
-        }
-
-        @keyframes starMove {
-            from {
-                transform: translateY(0);
-            }
-
-            to {
-                transform: translateY(-130px);
-            }
-        }
-
-        /* 導覽列 */
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-
-            background: rgba(4, 7, 18, .35);
-            backdrop-filter: blur(15px);
-
-            border-bottom: 1px solid rgba(232,200,117,.12);
-
-            transition: .3s;
-        }
-
-        header.scrolled {
-            background: rgba(4, 7, 18, .88);
-        }
-
-        .nav {
-            max-width: 1250px;
-            margin: auto;
-            height: 76px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 30px;
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.15;
-        }
-
-        .brand-cn {
-            font-size: 20px;
-            letter-spacing: 5px;
-            color: var(--gold);
-            font-weight: bold;
-        }
-
-        .brand-en {
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: #ddd;
-            margin-top: 5px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 34px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #e6e6ed;
-            font-size: 14px;
-            letter-spacing: 2px;
-
-            position: relative;
-
-            transition: .3s;
-        }
-
-        .nav-links a::after {
-            content: "";
-
-            position: absolute;
-            left: 50%;
-            bottom: -8px;
-
-            width: 0;
-            height: 1px;
-
-            background: var(--gold);
-
-            transform: translateX(-50%);
-
-            transition: .3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* 手機選單 */
-
-        .menu-btn {
-            display: none;
-            font-size: 28px;
-            color: var(--gold);
-            cursor: pointer;
-        }
-
-        /* HERO */
-
-        .hero {
-            min-height: 100vh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            position: relative;
-
-            text-align: center;
-
-            background:
-                linear-gradient(
-                    to bottom,
-                    rgba(2,4,14,.18),
-                    rgba(2,4,14,.40),
-                    #050817
-                ),
-                url("astriel-bg.png");
-
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-
-            padding: 120px 25px 80px;
-
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: "";
-
-            position: absolute;
-            inset: 0;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    transparent 0%,
-                    rgba(3,5,15,.2) 55%,
-                    rgba(3,5,15,.85) 100%
-                );
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-
-            max-width: 900px;
-
-            animation: heroAppear 1.5s ease;
-        }
-
-        @keyframes heroAppear {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-small {
-            color: var(--gold);
-
-            font-size: 13px;
-            letter-spacing: 8px;
-
-            margin-bottom: 22px;
-        }
-
-        .hero h1 {
-            font-size: clamp(48px, 8vw, 96px);
-
-            letter-spacing: 14px;
-
-            color: #fff;
-
-            text-shadow:
-                0 0 15px rgba(255,255,255,.35),
-                0 0 40px rgba(232,200,117,.20);
-
-            margin-bottom: 5px;
-        }
-
-        .hero h2 {
-            font-size: clamp(20px, 3vw, 34px);
-
-            letter-spacing: 9px;
-
-            color: var(--light-gold);
-
-            font-weight: 400;
-
-            margin-bottom: 24px;
-        }
-
-        .hero-tagline {
-            font-size: 13px;
-            letter-spacing: 7px;
-            color: #c8cad3;
-
-            margin-bottom: 38px;
-        }
-
-        .hero-quote {
-            font-size: clamp(18px, 2vw, 24px);
-
-            letter-spacing: 3px;
-
-            color: #fff;
-
-            margin-bottom: 42px;
-
-            text-shadow: 0 0 15px rgba(255,255,255,.15);
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            min-width: 160px;
-
-            padding: 12px 25px;
-
-            border: 1px solid var(--gold);
-
-            letter-spacing: 3px;
-            font-size: 14px;
-
-            transition: .35s;
-        }
-
-        .btn-primary {
-            background: var(--gold);
-            color: #111;
-        }
-
-        .btn-primary:hover {
-            background: var(--light-gold);
-
-            box-shadow:
-                0 0 15px rgba(232,200,117,.35),
-                0 0 35px rgba(232,200,117,.15);
-
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            color: var(--gold);
-            background: rgba(0,0,0,.18);
-        }
-
-        .btn-outline:hover {
-            background: rgba(232,200,117,.12);
-
-            box-shadow: 0 0 20px rgba(232,200,117,.15);
-
-            transform: translateY(-2px);
-        }
-
-        .scroll-down {
-            position: absolute;
-
-            z-index: 3;
-
-            bottom: 28px;
-            left: 50%;
-
-            transform: translateX(-50%);
-
-            color: var(--gold);
-
-            font-size: 11px;
-            letter-spacing: 4px;
-
-            opacity: .8;
-
-            animation: float 2s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(-50%, 0);
-            }
-
-            50% {
-                transform: translate(-50%, 8px);
-            }
-        }
-
-        /* 共用 SECTION */
-
-        section {
-            position: relative;
-            padding: 110px 25px;
-        }
-
-        .container {
-            max-width: 1050px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 55px;
-        }
-
-        .section-title .en {
-            color: var(--gold);
-
-            font-size: 11px;
-            letter-spacing: 7px;
-
-            margin-bottom: 8px;
-        }
-
-        .section-title h2 {
-            font-size: clamp(30px, 4vw, 45px);
-
-            letter-spacing: 7px;
-
-            font-weight: 500;
-        }
-
-        .gold-line {
-            width: 55px;
-            height: 1px;
-
-            background: var(--gold);
-
-            margin: 22px auto;
-        }
-
-        .section-intro {
-            color: #b9bed0;
-
-            text-align: center;
-
-            max-width: 720px;
-            margin: auto;
-
-            font-size: 16px;
-        }
-
-        /* 關於星闕 */
-
-        .about {
-            background:
-                linear-gradient(
-                    180deg,
-                    #050817,
-                    #0b1027,
-                    #050817
-                );
-        }
-
-        .about-text {
-            max-width: 800px;
-            margin: auto;
-
-            text-align: center;
-
-            color: #d7d9e2;
-
-            font-size: 17px;
-
-            line-height: 2.2;
-        }
-
-        .about-text strong {
-            color: var(--gold);
-            font-weight: 500;
-        }
-
-        /* 星闕之名 */
-
-        .name-story {
-            background:
-                radial-gradient(
-                    circle at 50% 40%,
-                    rgba(49,67,135,.22),
-                    transparent 55%
-                );
-        }
-
-        .meaning-grid {
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 30px;
-
-            margin-top: 60px;
-        }
-
-        .meaning-card {
-            position: relative;
-
-            padding: 55px 38px;
-
-            text-align: center;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(20,29,65,.65),
-                    rgba(7,11,28,.75)
-                );
-
-            border: 1px solid rgba(232,200,117,.2);
-
-            transition: .4s;
-
-            overflow: hidden;
-        }
-
-        .meaning-card::before {
-            content: "";
-
-            position: absolute;
-            inset: 0;
-
-            background:
-                radial-gradient(
-                    circle at top,
-                    rgba(232,200,117,.12),
-                    transparent 45%
-                );
-
-            opacity: 0;
-
-            transition: .4s;
-        }
-
-        .meaning-card:hover {
-            transform: translateY(-8px);
-
-            border-color: rgba(232,200,117,.55);
-
-            box-shadow: 0 15px 50px rgba(0,0,0,.3);
-        }
-
-        .meaning-card:hover::before {
-            opacity: 1;
-        }
-
-        .meaning-symbol {
-            font-size: 58px;
-
-            color: var(--gold);
-
-            line-height: 1;
-
-            margin-bottom: 25px;
-        }
-
-        .meaning-card h3 {
-            font-size: 25px;
-
-            letter-spacing: 6px;
-
-            margin-bottom: 15px;
-
-            color: var(--light-gold);
-        }
-
-        .meaning-card p {
-            color: #bfc2cf;
-
-            font-size: 15px;
-        }
-
-        .story-message {
-            text-align: center;
-
-            margin-top: 55px;
-
-            font-size: 19px;
-
-            color: #e8e3d8;
-
-            letter-spacing: 2px;
-        }
-
-        /* 成立理念 */
-
-        .philosophy {
-            background:
-                linear-gradient(
-                    180deg,
-                    #050817,
-                    #0c122a
-                );
-        }
-
-        .philosophy-content {
-            max-width: 780px;
-
-            margin: auto;
-
-            text-align: center;
-
-            color: #c6c9d4;
-
-            line-height: 2.2;
-
-            font-size: 16px;
-        }
-
-        .highlight {
-            color: var(--gold);
-
-            font-size: 22px;
-
-            letter-spacing: 3px;
-
-            display: block;
-
-            margin: 35px 0;
-        }
-
-        /* 未來展望 */
-
-        .future {
-            background:
-                radial-gradient(
-                    circle at 50% 100%,
-                    rgba(70,70,160,.15),
-                    transparent 55%
-                );
-        }
-
-        .future-text {
-            max-width: 780px;
-            margin: auto;
-
-            text-align: center;
-
-            color: #c5c8d4;
-
-            line-height: 2.2;
-
-            font-size: 16px;
-        }
-
-        .future-end {
-            margin-top: 45px;
-
-            color: var(--light-gold);
-
-            font-size: clamp(20px, 3vw, 28px);
-
-            letter-spacing: 4px;
-        }
-
-        /* 招募 */
-
-        .join {
-            min-height: 600px;
-
-            display: flex;
-            align-items: center;
-
-            text-align: center;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(35,53,120,.42),
-                    rgba(6,9,24,.92) 65%
-                );
-
-            overflow: hidden;
-        }
-
-        .join::before {
-            content: "✦";
-
-            position: absolute;
-
-            top: 55px;
-            left: 15%;
-
-            color: var(--gold);
-
-            font-size: 30px;
-
-            opacity: .45;
-
-            animation: sparkle 3s infinite;
-        }
-
-        .join::after {
-            content: "✦";
-
-            position: absolute;
-
-            bottom: 70px;
-            right: 15%;
-
-            color: var(--gold);
-
-            font-size: 22px;
-
-            opacity: .4;
-
-            animation: sparkle 4s infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% {
-                opacity: .25;
-                transform: scale(.8);
-            }
-
-            50% {
-                opacity: .8;
-                transform: scale(1.15);
-            }
-        }
-
-        .join h2 {
-            color: var(--gold);
-
-            font-size: clamp(30px, 5vw, 50px);
-
-            letter-spacing: 7px;
-
-            margin-bottom: 30px;
-        }
-
-        .join p {
-            max-width: 650px;
-            margin: 0 auto 35px;
-
-            color: #c7cad5;
-
-            font-size: 17px;
-
-            line-height: 2;
-        }
-
-        .join-question {
-            color: #fff;
-
-            font-size: 23px;
-
-            letter-spacing: 4px;
-
-            margin-bottom: 35px;
-        }
-
-        /* 聯絡方式 */
-
-        .contact-info {
-            margin-top: 35px;
-
-            color: #bfc2cf;
-
-            font-size: 14px;
-
-            line-height: 2.2;
-
-            letter-spacing: 1px;
-        }
-
-        .contact-info span {
-            color: var(--gold);
-        }
-
-        .contact-info a {
-            transition: .3s;
-        }
-
-        .contact-info a:hover {
-            color: var(--light-gold);
-        }
-
-        /* Footer */
-
-        footer {
-            background: #02040b;
-
-            text-align: center;
-
-            padding: 70px 25px 40px;
-
-            border-top: 1px solid rgba(232,200,117,.15);
-        }
-
-        .footer-cn {
-            color: var(--gold);
-
-            letter-spacing: 8px;
-
-            font-size: 22px;
-
-            margin-bottom: 6px;
-        }
-
-        .footer-en {
-            letter-spacing: 5px;
-
-            font-size: 14px;
-
-            color: #ddd;
-
-            margin-bottom: 15px;
-        }
-
-        .footer-tag {
-            color: #797e90;
-
-            font-size: 10px;
-
-            letter-spacing: 5px;
-
-            margin-bottom: 40px;
-        }
-
-        .copyright {
-            color: #555a69;
-
-            font-size: 12px;
-        }
-
-        /* 滾動動畫 */
-
-        .reveal {
-            opacity: 0;
-
-            transform: translateY(35px);
-
-            transition:
-                opacity .9s ease,
-                transform .9s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* RWD */
-
-        @media (max-width: 800px) {
-
-            .nav {
-                height: 68px;
-                padding: 0 20px;
-            }
-
-            .brand-cn {
-                font-size: 17px;
-            }
-
-            .brand-en {
-                font-size: 8px;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                position: absolute;
-
-                top: 68px;
-                left: 0;
-
-                width: 100%;
-
-                flex-direction: column;
-
-                gap: 0;
-
-                background: rgba(3,6,16,.96);
-
-                max-height: 0;
-
-                overflow: hidden;
-
-                transition: .35s;
-            }
-
-            .nav-links.open {
-                max-height: 400px;
-
-                border-bottom: 1px solid rgba(232,200,117,.15);
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                display: block;
-
-                width: 100%;
-
-                padding: 17px;
-
-                text-align: center;
-            }
-
-            .hero {
-                background-attachment: scroll;
-                min-height: 100svh;
-            }
-
-            .hero h1 {
-                letter-spacing: 9px;
-            }
-
-            .hero h2 {
-                letter-spacing: 5px;
-            }
-
-            .hero-tagline {
-                letter-spacing: 4px;
-            }
-
-            section {
-                padding: 85px 22px;
-            }
-
-            .meaning-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .meaning-card {
-                padding: 45px 25px;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            .hero h1 {
-                font-size: 48px;
-                letter-spacing: 7px;
-            }
-
-            .hero h2 {
-                font-size: 19px;
-                letter-spacing: 3px;
-            }
-
-            .hero-small {
-                font-size: 10px;
-                letter-spacing: 5px;
-            }
-
-            .hero-quote {
-                font-size: 17px;
-                line-height: 2;
-            }
-
-            .buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 210px;
-            }
-
-            .section-title h2 {
-                letter-spacing: 4px;
-            }
-
-            .section-title .en {
-                letter-spacing: 5px;
-            }
-        }
-
-    </style>
+<meta name="author" content="Twitch 南宮搖光">
+<meta name="copyright" content="南宮搖光">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apex Sensitivity Lab</title>
+<meta name="description" content="Apex Legends 靈敏度測試：Tracking、Flick、Reaction 與 A/B 盲測。">
+<style>
+:root{--bg:#0b0f14;--panel:#121923;--line:#263244;--text:#eef3f8;--muted:#94a3b8;--accent:#ff4655;--good:#41d17d}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:system-ui,"Noto Sans TC",sans-serif}
+body{display:flex;overflow:hidden}.side{width:330px;background:#0e141d;border-right:1px solid var(--line);padding:16px;overflow:auto}
+h1{font-size:21px;margin:0 0 6px}.sub,.small{color:var(--muted);font-size:12px;line-height:1.5}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px;margin-top:11px}
+h2{font-size:14px;margin:0 0 10px}label{display:block;color:var(--muted);font-size:12px;margin:7px 0 4px}
+input,select,button{font:inherit}input,select{width:100%;padding:8px;border-radius:8px;border:1px solid #344156;background:#0b1119;color:white}
+.row,.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{background:#0b1119;border:1px solid var(--line);border-radius:9px;padding:8px}.stat span{font-size:11px;color:var(--muted)}.stat b{display:block;font-size:18px;margin-top:2px}
+button{border:0;border-radius:9px;padding:10px;background:#263244;color:white;cursor:pointer}.primary{background:var(--accent);font-weight:700}.good{background:var(--good);color:#07140d;font-weight:700}
+.btns{display:flex;gap:8px;margin-top:10px}.btns button{flex:1}.main{flex:1;display:flex;flex-direction:column;min-width:0}.top{height:58px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#0e141d}
+.wrap{flex:1;padding:12px;min-height:0}.arena{position:relative;width:100%;height:100%;overflow:hidden;border:1px solid var(--line);border-radius:15px;background:radial-gradient(circle at center,rgba(255,255,255,.035),transparent 55%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,42px 42px,42px 42px;cursor:crosshair}
+.cross{position:absolute;width:8px;height:8px;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:3;background:#39ff14;border-radius:50%;box-shadow:0 0 6px rgba(57,255,20,.9)}.cross:before,.cross:after{display:none}
+.target{position:absolute;border-radius:50%;background:#ff4655;box-shadow:0 0 22px rgba(255,70,85,.45);transform:translate(-50%,-50%)}.target:after{content:"";position:absolute;inset:28%;background:#fff;border-radius:50%}
+.msg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;text-align:center;background:rgba(5,9,14,.82);border:1px solid var(--line);border-radius:13px;padding:18px 22px}.msg h3{margin:0 0 5px}.hidden{display:none!important}.results{font-size:12px;max-height:150px;overflow:auto}.result{display:flex;justify-content:space-between;border-bottom:1px solid #202b3a;padding:6px 0;color:#c8d3df}
+</style>
 </head>
-
 <body>
-
-    <!-- 星空 -->
-    <div class="stars"></div>
-    <div class="stars2"></div>
-
-
-    <!-- 導覽列 -->
-    <header id="header">
-
-        <nav class="nav">
-
-            <a href="#home" class="brand">
-
-                <span class="brand-cn">
-                    星闕娛樂
-                </span>
-
-                <span class="brand-en">
-                    ASTRIEL ENTERTAINMENT
-                </span>
-
-            </a>
-
-
-            <div class="menu-btn" id="menuBtn">
-                ☰
-            </div>
-
-
-            <ul class="nav-links" id="navLinks">
-
-                <li>
-                    <a href="#home">首頁</a>
-                </li>
-
-                <li>
-                    <a href="#about">關於星闕</a>
-                </li>
-
-                <li>
-                    <a href="#story">星闕之名</a>
-                </li>
-
-                <li>
-                    <a href="#future">未來展望</a>
-                </li>
-
-                <li>
-                    <a href="#join">加入我們</a>
-                </li>
-
-            </ul>
-
-        </nav>
-
-    </header>
-
-
-    <!-- HERO -->
-    <section class="hero" id="home">
-
-        <div class="hero-content">
-
-            <div class="hero-small">
-                WELCOME TO
-            </div>
-
-            <h1>
-                星闕
-            </h1>
-
-            <h2>
-                ASTRIEL
-            </h2>
-
-            <div class="hero-tagline">
-                DREAM · PLAY · TOGETHER
-            </div>
-
-            <div class="hero-quote">
-                讓被看見，成為下一次看見別人的理由。
-            </div>
-
-
-            <div class="buttons">
-
-                <a href="#about"
-                   class="btn btn-primary">
-                    了解星闕
-                </a>
-
-                <a href="#join"
-                   class="btn btn-outline">
-                    加入我們
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="scroll-down">
-            SCROLL ↓
-        </div>
-
-    </section>
-
-
-    <!-- 關於星闕 -->
-    <section class="about" id="about">
-
-        <div class="container reveal">
-
-            <div class="section-title">
-
-                <div class="en">
-                    ABOUT ASTRIEL
-                </div>
-
-                <h2>
-                    關於星闕
-                </h2>
-
-                <div class="gold-line"></div>
-
-            </div>
-
-
-            <div class="about-text">
-
-                在浩瀚的世界裡，
-                有些人已經耀眼奪目，
-                但仍有一些人安靜地發著屬於自己的光。
-
-                <br><br>
-
-                <strong>
-                    星闕娛樂希望成為，
-                    讓這些光芒彼此相遇的地方。
-                </strong>
-
-                <br><br>
-
-                我們因為緣分而相識，
-                因為遊戲而連結。
-
-                <br>
-
-                我們希望透過彼此的合作、連動與陪伴，
-                讓更多尚未被看見的創作者，
-                增加被看見與曝光的機會。
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 星闕之名 -->
-    <section class="name-story" id="story">
-
-        <div class="container">
-
-            <div class="section-title reveal">
-
-                <div class="en">
-                    THE NAME OF ASTRIEL
-                </div>
-
-                <h2>
-                    星闕之名
-                </h2>
-
-                <div class="gold-line"></div>
-
-                <p class="section-intro">
-                    每一道光，
-                    都有屬於自己的故事。
-                </p>
-
-            </div>
-
-
-            <div class="meaning-grid">
-
-                <div class="meaning-card reveal">
-
-                    <div class="meaning-symbol">
-                        星
-                    </div>
-
-                    <h3>
-                        星
-                    </h3>
-
-                    <p>
-                        代表每一位散落各處、
-                        等待被看見的創作者。
-                        <br><br>
-                        每一顆星都有自己的光芒，
-                        不需要與任何人相同。
-                    </p>
-
-                </div>
-
-
-                <div class="meaning-card reveal">
-
-                    <div class="meaning-symbol">
-                        闕
-                    </div>
-
-                    <h3>
-                        闕
-                    </h3>
-
-                    <p>
-                        是讓不同星辰能夠相遇、
-                        相識與同行的地方。
-                        <br><br>
-                        當不同的光芒在這裡聚集，
-                        便形成屬於星闕的星空。
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="story-message reveal">
-
-                每個人都可以有自己的光，
-                <br>
-                而星闕，希望讓這些光彼此看見。
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 成立理念 -->
-    <section class="philosophy">
-
-        <div class="container reveal">
-
-            <div class="section-title">
-
-                <div class="en">
-                    OUR PHILOSOPHY
-                </div>
-
-                <h2>
-                    成立理念
-                </h2>
-
-                <div class="gold-line"></div>
-
-            </div>
-
-
-            <div class="philosophy-content">
-
-                星闕是為了聚集
-                有相同愛好的人。
-
-                <br><br>
-
-                我們更希望找到一群
-                真正喜歡遊戲、直播，
-                並且願意一起前進的人。
-
-                <span class="highlight">
-                    因遊戲相遇，
-                    因彼此前進。
-                </span>
-
-                在這裡，
-                每個人都可以保有自己的特色與方向。
-
-                <br>
-
-                透過遊戲、連動、合作與交流，
-                一起創造更多回憶，
-                也一起尋找更多機會。
-
-                <br><br>
-
-                而當有一天，
-                我們被更多人看見，
-
-                <br>
-
-                我們也希望能回過頭，
-                將曾經得到的機會，
-
-                <br>
-
-                繼續傳遞給下一個
-                還在等待被看見的人。
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 未來展望 -->
-    <section class="future" id="future">
-
-        <div class="container reveal">
-
-            <div class="section-title">
-
-                <div class="en">
-                    OUR FUTURE
-                </div>
-
-                <h2>
-                    未來展望
-                </h2>
-
-                <div class="gold-line"></div>
-
-            </div>
-
-
-            <div class="future-text">
-
-                我們希望匯聚更多
-                熱愛遊戲、直播的人。
-
-                <br><br>
-
-                從一場遊戲、
-                一次連動、
-                一次相遇開始，
-
-                <br>
-
-                慢慢建立屬於我們自己的
-                創作圈與夥伴關係。
-
-                <br><br>
-
-                讓每一位成員
-                都能朝自己的目標前進，
-
-                <br>
-
-                也讓星闕娛樂隨著大家的成長，
-                一步一步擴大，
-
-                <div class="future-end">
-                    組成一個屬於我們的大家庭。
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 加入星闕 -->
-    <section class="join" id="join">
-
-        <div class="container reveal">
-
-            <div class="section-title">
-
-                <div class="en">
-                    JOIN ASTRIEL
-                </div>
-
-            </div>
-
-
-            <h2>
-                我們正在尋找，
-                下一顆星。
-            </h2>
-
-
-            <p>
-
-                如果你也熱愛遊戲與直播，
-
-                <br>
-
-                如果你也希望認識更多人，
-                一起玩遊戲、一起創作、一起向前，
-
-                <br><br>
-
-                也許，
-                星闕會是你最好的選擇。
-
-            </p>
-
-
-            <div class="join-question">
-                下一顆星，
-                會是你嗎？
-            </div>
-
-
-            <div class="contact-info">
-
-                <span>Discord</span>
-                ：YAOGUANG1099
-
-                <br>
-
-                <span>Gmail</span>
-                ：
-                <a href="mailto:baizhouye423@gmail.com">
-                    baizhouye423@gmail.com
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer>
-
-        <div class="footer-cn">
-            星闕娛樂
-        </div>
-
-        <div class="footer-en">
-            ASTRIEL ENTERTAINMENT
-        </div>
-
-        <div class="footer-tag">
-            DREAM · PLAY · TOGETHER
-        </div>
-
-        <div class="copyright">
-            © 2026 ASTRIEL Entertainment.
-            All Rights Reserved.
-        </div>
-
-    </footer>
-
-
-    <script>
-
-        /* 導覽列背景 */
-
-        const header =
-            document.getElementById("header");
-
-        window.addEventListener(
-            "scroll",
-            () => {
-
-                if (window.scrollY > 50) {
-
-                    header.classList.add(
-                        "scrolled"
-                    );
-
-                } else {
-
-                    header.classList.remove(
-                        "scrolled"
-                    );
-
-                }
-
-            }
-        );
-
-
-        /* 手機選單 */
-
-        const menuBtn =
-            document.getElementById(
-                "menuBtn"
-            );
-
-        const navLinks =
-            document.getElementById(
-                "navLinks"
-            );
-
-        menuBtn.addEventListener(
-            "click",
-            () => {
-
-                navLinks.classList.toggle(
-                    "open"
-                );
-
-            }
-        );
-
-        document
-            .querySelectorAll(
-                ".nav-links a"
-            )
-            .forEach(
-                link => {
-
-                    link.addEventListener(
-                        "click",
-                        () => {
-
-                            navLinks
-                                .classList
-                                .remove(
-                                    "open"
-                                );
-
-                        }
-                    );
-
-                }
-            );
-
-
-        /* Scroll Reveal */
-
-        const revealElements =
-            document.querySelectorAll(
-                ".reveal"
-            );
-
-        function revealOnScroll() {
-
-            const trigger =
-                window.innerHeight * 0.85;
-
-            revealElements.forEach(
-                element => {
-
-                    const top =
-                        element
-                            .getBoundingClientRect()
-                            .top;
-
-                    if (top < trigger) {
-
-                        element
-                            .classList
-                            .add(
-                                "active"
-                            );
-
-                    }
-
-                }
-            );
-
-        }
-
-        window.addEventListener(
-            "scroll",
-            revealOnScroll
-        );
-
-        revealOnScroll();
-
-    </script>
+<aside class="side">
+<h1>Apex Sensitivity Lab <span style='font-size:11px;color:#41d17d'>v3.1</span></h1><div class="sub">跟槍、定位、反應、A/B 盲測。紀錄只存在你的瀏覽器。</div>
+
+<div class="card"><h2>靈敏度</h2>
+<div class="row"><div><label>DPI</label><input id="dpi" type="text" inputmode="decimal" value="4000"></div><div><label>Apex 腰射</label><input id="sens" type="text" inputmode="decimal" value="0.32" autocomplete="off" spellcheck="false"></div></div>
+<div class="row"><div><label>ADS 倍率</label><input id="ads" type="text" inputmode="decimal" value="1.00" autocomplete="off" spellcheck="false"></div>
+<div class="row">
+  <div><label>FOV</label><input id="fov" type="text" inputmode="decimal" value="110" autocomplete="off"></div>
+  <div><label>瞄具倍率</label>
+    <select id="optic">
+      <option value="1" selected>1×</option>
+      <option value="2">2×</option>
+      <option value="3">3×</option>
+      <option value="4">4×</option>
+      <option value="6">6×</option>
+      <option value="8">8×</option>
+      <option value="10">10×</option>
+    </select>
+  </div>
+</div>
+<div class="small" style="margin-top:5px">腰射以 eDPI（DPI × Sens）為基準；ADS 再套用瞄具 FOV 縮放與 ADS 倍率。</div>
+<div><label>目標大小</label><select id="size"><option value="34">小（1080p 基準 34px）</option><option value="48" selected>中（1080p 基準 48px）</option><option value="66">大（1080p 基準 66px）</option></select><div class="small">目前實際大小：<b id="targetSizeNow">—</b></div></div></div>
+<div class="stats" style="margin-top:9px"><div class="stat"><span>eDPI</span><b id="edpi"></b></div><div class="stat"><span>約 cm/360</span><b id="cm360"></b></div></div>
+<div class="small" style="margin-top:7px">cm/360 以 Apex 常用 yaw 0.022°/count 估算。瀏覽器與遊戲 Raw Input 不會完全 1:1，適合用來比較不同靈敏度的相對表現。</div><div class="small" style="margin-top:5px">準星速度會直接跟隨「Apex 腰射」數值：例如 0.16 約為 0.32 的一半速度，0.64 約為兩倍速度。</div><div class="small" style="margin-top:5px">所有可輸入數值皆不設上下限、不自動四捨五入，也不會改寫你輸入的內容。</div><div class="stat" style="margin-top:8px"><span>目前準星速度倍率（以 0.32 = 1.00×）</span><b id="speedMul">1.00×</b></div>
+</div>
+
+<div class="card"><h2>測試模式</h2>
+<label>模式</label><select id="mode"><option value="tracking">Tracking 跟槍</option><option value="flick">Flick 定位</option><option value="reaction">Reaction 反應</option><option value="dynamic">Dynamic Vision 動態視力</option></select>
+<div class="row"><div><label>時間</label><select id="duration"><option value="20">20 秒</option><option value="30" selected>30 秒</option><option value="60">60 秒</option><option value="120">2 分鐘</option><option value="300">5 分鐘</option></select></div><div><label>難度</label><select id="difficulty"><option value=".75">簡單</option><option value="1" selected>標準</option><option value="1.35">困難</option></select></div></div>
+<div class="row">
+  <div>
+    <label>移動靶速度</label>
+    <select id="moveSpeed">
+      <option value="199" selected>走路｜199</option>
+      <option value="299">跑步／空手｜299</option>
+    </select>
+  </div>
+  <div>
+    <label>速度基準</label>
+    <div class="metric"><b id="moveSpeedLabel">199</b><span>遊戲內速度</span></div>
+  </div>
+</div>
+<div class="small" style="margin-top:5px">反應模式：目標出現後 1 秒內未命中會自動消失；下一顆會出現在較近的位置，但保留最低距離避免黏在一起。</div><div class="small" style="margin-top:5px">動態視力：固定 5 分鐘。每 50 秒更換一種圖形，共 6 段：垂直鋸齒、五角星、∞ 字、圓形、水平鋸齒、菱形折返；球速會在快慢之間平滑變化。此模式不需要射擊或鎖定滑鼠。</div>
+<div class="row">
+  <div><label>射擊模式</label>
+    <select id="fireMode">
+      <option value="auto" selected>自動射擊</option>
+      <option value="hold">按住左鍵連射</option>
+      <option value="click">單點射擊</option>
+    </select>
+  </div>
+  <div><label>射速</label>
+    <select id="fireRate">
+      <option value="120">8.3 發/秒</option>
+      <option value="100" selected>10 發/秒</option>
+      <option value="80">12.5 發/秒</option>
+      <option value="60">16.7 發/秒</option>
+    </select>
+  </div>
+</div>
+<div class="btns"><button id="start" class="primary">開始測試</button><button id="stop" disabled>停止</button></div></div>
+
+<div class="card"><h2>本輪成績</h2><div class="stats">
+<div class="stat"><span>分數</span><b id="score">0</b></div><div class="stat"><span>命中率</span><b id="acc">0%</b></div>
+<div class="stat"><span>平均反應</span><b id="rt">—</b></div><div class="stat"><span>剩餘</span><b id="time">0.0</b></div><div class="stat"><span>動態階段</span><b id="phase">—</b></div>
+</div></div>
+
+<div class="card"><h2>A/B 靈敏度盲測</h2>
+<div class="row"><div><label>A</label><input id="a" type="text" inputmode="decimal" value="0.30" autocomplete="off" spellcheck="false"></div><div><label>B</label><input id="b" type="text" inputmode="decimal" value="0.34" autocomplete="off" spellcheck="false"></div></div>
+<button id="ab" class="good" style="width:100%;margin-top:9px">開始 A/B 盲測</button><div id="abtxt" class="small" style="margin-top:7px">隨機安排兩輪，完成後才公布哪輪是哪個靈敏度。</div></div>
+
+<div class="card"><h2>歷史紀錄</h2><div class="btns"><button id="clear">清除</button><button id="csv">匯出 CSV</button></div><div id="results" class="results"></div></div>
+</aside>
+
+<main class="main"><div class="top"><b id="title">Tracking 跟槍</b><span class="small">點場地鎖定滑鼠｜Esc 解除｜即時速度 <b id="topSpeed">1.00×</b>｜模式 <b id="adsState">腰射</b></span></div>
+<div class="wrap"><div id="arena" class="arena"><div id="cross" class="cross"></div><div id="target" class="target hidden"></div>
+<div id="msg" class="msg"><h3>準備好了就開始</h3><div class="small">按「開始測試」，再點一下測試區域。左鍵射擊；Tracking 模式盡量把準星維持在目標上。</div></div>
+</div></div></main>
+
+<script>
+const $=x=>document.getElementById(x),arena=$("arena"),target=$("target"),cross=$("cross"),msg=$("msg");
+let run=false,startAt=0,endAt=0,raf=0,timer=0,score=0,shots=0,hits=0,rts=[],tx=0,ty=0,vx=0,vy=0,cx=0,cy=0,last=0;let fireTimer=0,leftHeld=false;
+let abMode=false,abRound=0,abOrder=[],abScores=[];let adsHeld=false;let nextStrafeChange=0,strafeBias=1;let dynamicDir=1,dynamicPhase=-1;
+
+function calc(){
+  const d=parseFreeNumber("dpi",NaN);
+  const parsed=parseFreeNumber("sens",NaN);
+  if(!Number.isFinite(parsed)||!Number.isFinite(d)){
+    $("edpi").textContent="—"; $("cm360").textContent="—";
+    if($("speedMul")) $("speedMul").textContent="—";
+    if($("topSpeed")) $("topSpeed").textContent="—";
+    return;
+  }
+  const s=parsed;
+  $("edpi").textContent=Math.round(d*s);
+  const cm=2.54*360/(d*s*.022);
+  $("cm360").textContent=Number.isFinite(cm)?cm.toFixed(1):"—";
+  const mul=(d*s)/1280;
+  if($("speedMul")) $("speedMul").textContent=mul.toFixed(2)+"×";
+  if($("topSpeed")) $("topSpeed").textContent=mul.toFixed(2)+"×";
+  if($("adsEffective")){
+    const av=d*s*apexAdsAngularScale();
+    $("adsEffective").textContent=Number.isFinite(av)?Math.round(av):"—";
+  }
+}
+$("dpi").oninput=calc;
+
+$("mode").onchange=()=>{
+  const m=$("mode").value;
+  $("title").textContent=
+    m==="tracking"?"Tracking 跟槍":
+    m==="flick"?"Flick 定位":
+    m==="reaction"?"Reaction 反應":
+    "Dynamic Vision 動態視力";
+
+  if(m==="dynamic"){
+    $("duration").value="300";
+    $("duration").disabled=true;
+    $("difficulty").disabled=true;
+    $("fireMode").disabled=true;
+    $("fireRate").disabled=true;
+  }else{
+    $("duration").disabled=false;
+    $("difficulty").disabled=false;
+    $("fireMode").disabled=false;
+    $("fireRate").disabled=false;
+  }
+};
+
+function reset(){score=shots=hits=0;rts=[];$("score").textContent=0;$("acc").textContent="0%";$("rt").textContent="—";$("time").textContent="0.0";if($("phase"))$("phase").textContent="—"}
+function stats(){$("score").textContent=Math.round(score);$("acc").textContent=shots?Math.round(hits/shots*100)+"%":"0%";$("rt").textContent=rts.length?Math.round(rts.reduce((a,b)=>a+b,0)/rts.length)+" ms":"—"}
+function place(moving=true){let r=responsiveTargetSize()/2,w=arena.clientWidth,h=arena.clientHeight;tx=r+Math.random()*(w-2*r);ty=r+Math.random()*(h-2*r);if(moving){let d=+$("difficulty").value,a=Math.random()*Math.PI*2,sp=(140+Math.random()*120)*d;vx=Math.cos(a)*sp;vy=Math.sin(a)*sp}target.style.width=r*2+"px";target.style.height=r*2+"px";target.style.left=tx+"px";target.style.top=ty+"px";target.classList.remove("hidden");target.dataset.since=performance.now()}
+function reaction(){
+  target.classList.add("hidden");
+
+  // Random delay before the next reaction target appears.
+  const wait=450+Math.random()*950;
+  clearTimeout(reaction._showTimer);
+  clearTimeout(reaction._hideTimer);
+
+  reaction._showTimer=setTimeout(()=>{
+    if(!run || $("mode").value!=="reaction") return;
+
+    const r=responsiveTargetSize()/2;
+    const w=arena.clientWidth, h=arena.clientHeight;
+
+    // v3.1: unbiased left/right reaction placement.
+    let nx=tx, ny=ty, tries=0;
+    const wantLeft=Math.random()<0.5;
+    const pad=r+28, gap=24;
+    do{
+      nx=wantLeft
+        ? pad+Math.random()*Math.max(1,(w/2-gap)-pad)
+        : (w/2+gap)+Math.random()*Math.max(1,(w-pad)-(w/2+gap));
+      ny=pad+Math.random()*Math.max(1,h-pad*2);
+      tries++;
+    }while((Math.hypot(nx-tx,ny-ty)<120 || Math.hypot(nx-tx,ny-ty)>430) && tries<30);
+
+    tx=nx; ty=ny;
+    target.style.left=tx+"px";
+    target.style.top=ty+"px";
+    target.classList.remove("hidden");
+    target.dataset.since=performance.now();
+
+    // Missed reaction: hide automatically after 2 seconds,
+    // count it as a shot/miss, then schedule the next target.
+    reaction._hideTimer=setTimeout(()=>{
+      if(!run || $("mode").value!=="reaction") return;
+      if(target.classList.contains("hidden")) return;
+
+      target.classList.add("hidden");
+      shots++;
+      score=Math.max(0,score-40);
+      stats();
+
+      reaction();
+    },1000);
+  },wait);
+}
+
+function startDynamicVision(){
+  startAt=performance.now();
+  endAt=startAt+300000;
+  last=startAt;
+  dynamicDir=1;
+  dynamicPhase=0;
+  updateDynamicVision.dx=1;
+  updateDynamicVision.dy=1;
+  updateDynamicVision.pathDist=0;
+  updateDynamicVision.lastNow=null;
+  updateDynamicVision.lastPhase=-1;
+
+  const r=responsiveTargetSize()/2;
+  const w=arena.clientWidth,h=arena.clientHeight;
+  tx=w/2;
+  ty=h/2;
+  target.style.width=(r*2)+"px";
+  target.style.height=(r*2)+"px";
+  target.style.left=tx+"px";
+  target.style.top=ty+"px";
+  target.classList.remove("hidden");
+  cross.style.display="none";
+  msg.classList.add("hidden");
+  if($("phase")) $("phase").textContent="上下移動";
+  loop(last);
+}
+
+function updateDynamicVision(now,dt){
+  const r=responsiveTargetSize()/2;
+  const w=arena.clientWidth,h=arena.clientHeight;
+  const elapsed=(now-startAt)/1000;
+  const phase=Math.min(5,Math.floor(elapsed/50));
+  const local=elapsed-phase*50;
+
+  // Smooth, irregular speed changes: the ball glides between slow and fast
+  // instead of snapping abruptly. Range is roughly 0.65x–1.45x.
+  const waveA=Math.sin(elapsed*0.63);
+  const waveB=Math.sin(elapsed*0.21+1.7);
+  const speedFactor=Math.max(0.65,Math.min(1.45,1.0+0.28*waveA+0.18*waveB));
+  const baseSpeed=0.78*speedFactor*targetMoveScale();
+
+  // Helpers for sampling a polyline at constant-ish path speed.
+  function pointOnPolyline(points,dist){
+    let lengths=[],total=0;
+    for(let i=0;i<points.length-1;i++){
+      const dx=points[i+1][0]-points[i][0];
+      const dy=points[i+1][1]-points[i][1];
+      const len=Math.hypot(dx,dy);
+      lengths.push(len); total+=len;
+    }
+    if(total<=0)return points[0];
+    let d=((dist%total)+total)%total;
+    for(let i=0;i<lengths.length;i++){
+      if(d<=lengths[i]){
+        const t=lengths[i]===0?0:d/lengths[i];
+        return [
+          points[i][0]+(points[i+1][0]-points[i][0])*t,
+          points[i][1]+(points[i+1][1]-points[i][1])*t
+        ];
+      }
+      d-=lengths[i];
+    }
+    return points[points.length-1];
+  }
+
+  // Integrate a virtual path distance so speed can vary smoothly.
+  if(updateDynamicVision.lastNow==null || phase!==updateDynamicVision.lastPhase){
+    updateDynamicVision.pathDist=0;
+    updateDynamicVision.lastNow=now;
+    updateDynamicVision.lastPhase=phase;
+  }
+  updateDynamicVision.pathDist += baseSpeed*220*dt;
+
+  const pad=Math.max(28,r+22);
+  const left=pad, right=w-pad, top=pad, bottom=h-pad;
+  const cx=w/2, cy=h/2;
+  let p=[cx,cy];
+
+  if(phase===0){
+    // Vertical zigzag
+    const x1=w*0.34, x2=w*0.66;
+    const pts=[
+      [x1,bottom],[x1,top],[x2,bottom],[x2,top],
+      [x1,bottom],[x1,top],[x2,bottom]
+    ];
+    p=pointOnPolyline(pts,updateDynamicVision.pathDist);
+    if($("phase")) $("phase").textContent="1/6 垂直鋸齒";
+  }else if(phase===1){
+    // Five-point star
+    const outer=Math.min(w,h)*0.38;
+    const star=[];
+    for(let i=0;i<5;i++){
+      const a=-Math.PI/2+i*2*Math.PI/5;
+      star.push([cx+Math.cos(a)*outer,cy+Math.sin(a)*outer]);
+    }
+    const order=[0,2,4,1,3,0];
+    const pts=order.map(i=>star[i]);
+    p=pointOnPolyline(pts,updateDynamicVision.pathDist);
+    if($("phase")) $("phase").textContent="2/6 五角星";
+  }else if(phase===2){
+    // Infinity / lemniscate
+    const t=updateDynamicVision.pathDist/170;
+    const rx=Math.min(w*0.36,(right-left)*0.46);
+    const ry=Math.min(h*0.28,(bottom-top)*0.42);
+    p=[
+      cx+Math.sin(t)*rx,
+      cy+Math.sin(t*2)*ry
+    ];
+    if($("phase")) $("phase").textContent="3/6 ∞ 字";
+  }else if(phase===3){
+    // Circle
+    const rad=Math.min((right-left),(bottom-top))*0.36;
+    const t=updateDynamicVision.pathDist/Math.max(1,rad);
+    p=[
+      cx+Math.cos(t)*rad,
+      cy+Math.sin(t)*rad
+    ];
+    if($("phase")) $("phase").textContent="4/6 圓形";
+  }else if(phase===4){
+    // Horizontal zigzag
+    const y1=h*0.24,y2=h*0.40,y3=h*0.56,y4=h*0.72;
+    const pts=[
+      [left,y1],[right,y1],[left,y2],[right,y2],
+      [left,y3],[right,y3],[left,y4],[right,y4]
+    ];
+    p=pointOnPolyline(pts,updateDynamicVision.pathDist);
+    if($("phase")) $("phase").textContent="5/6 水平鋸齒";
+  }else{
+    // Diamond / diagonal return path
+    const pts=[
+      [cx,top],[right,cy],[cx,bottom],[left,cy],[cx,top],
+      [cx,bottom],[right,cy],[left,cy],[cx,top]
+    ];
+    p=pointOnPolyline(pts,updateDynamicVision.pathDist);
+    if($("phase")) $("phase").textContent="6/6 菱形折返";
+  }
+
+  tx=Math.max(r,Math.min(w-r,p[0]));
+  ty=Math.max(r,Math.min(h-r,p[1]));
+  target.style.left=tx+"px";
+  target.style.top=ty+"px";
+}
+
+function finish(){if(!run)return;cross.style.display="";run=false;startAt=0;endAt=0;clearTimeout(reaction._showTimer);clearTimeout(reaction._hideTimer);stopContinuousFire();leftHeld=false;adsHeld=false;updateADSIndicator();cancelAnimationFrame(raf);clearTimeout(timer);target.classList.add("hidden");$("start").disabled=false;$("stop").disabled=true;document.exitPointerLock?.();let rt=rts.length?Math.round(rts.reduce((a,b)=>a+b,0)/rts.length):null;let rec={date:new Date().toLocaleString(),mode:$("mode").value,dpi:+$("dpi").value,sens:+$("sens").value,ads:+$("ads").value,score:Math.round(score),acc:shots?Math.round(hits/shots*100):0,rt};save(rec);msg.classList.remove("hidden");msg.innerHTML=$("mode").value==="dynamic"?"<h3>動態視力訓練完成！</h3><div class='small'>已完成 6 組 × 50 秒的動態視力訓練。</div>":"<h3>完成！</h3><div class='small'>分數 <b>"+rec.score+"</b>　命中率 <b>"+rec.acc+"%</b>"+(rt?"　平均反應 <b>"+rt+" ms</b>":"")+"</div>";if(abMode)nextAB(rec)}
+function loop(now){
+  if(!run)return;
+  let dt=Math.min(.033,(now-last)/1000);
+  last=now;
+  let left=Math.max(0,endAt-now);
+  $("time").textContent=(left/1000).toFixed(1);
+
+  const mode=$("mode").value;
+
+  if(mode==="tracking"){
+    let r=responsiveTargetSize()/2,w=arena.clientWidth,h=arena.clientHeight;
+    irregularTracking(now);
+    tx += vx*dt*targetMoveScale();
+    ty += vy*dt*targetMoveScale();
+    if(tx<r||tx>w-r){vx*=-1;tx=Math.max(r,Math.min(w-r,tx))}
+    if(ty<r||ty>h-r){vy*=-1;ty=Math.max(r,Math.min(h-r,ty))}
+    target.style.left=tx+"px";
+    target.style.top=ty+"px";
+    if(Math.hypot(cx-tx,cy-ty)<r)score+=dt*100;
+    stats();
+  }else if(mode==="dynamic"){
+    updateDynamicVision(now,dt);
+  }
+
+  if(left<=0)return finish();
+  raf=requestAnimationFrame(loop);
+}
+
+arena.onmousemove=e=>{
+  if(!run||document.pointerLockElement!==arena)return;
+
+  // 0.32 is the baseline. 0.16 = half speed, 0.64 = double speed.
+  const dpi=parseFreeNumber("dpi",4000);
+  const hipSens=parseFreeNumber("sens",0.32);
+  const hipEDPI=dpi*hipSens;
+
+  // v3.1: actual cursor displacement is driven by eDPI.
+  // 1280 eDPI (4000 × 0.32) remains the original 1.00× calibration baseline.
+  // ADS additionally applies Apex-style focal-length/FOV scaling and the user's ADS multiplier.
+  const hipScale=hipEDPI/1280;
+  const speedMultiplier=adsHeld ? hipScale*apexAdsAngularScale() : hipScale;
+
+  const dx=e.movementX*speedMultiplier;
+  const dy=e.movementY*speedMultiplier;
+
+  cx=Math.max(0,Math.min(arena.clientWidth,cx+dx));
+  cy=Math.max(0,Math.min(arena.clientHeight,cy+dy));
+  cross.style.left=cx+"px";
+  cross.style.top=cy+"px";
+};
+
+function doShot(){
+  if($("mode").value==="dynamic") return;
+  if(!run || document.pointerLockElement!==arena) return;
+  const r=responsiveTargetSize()/2;
+  const visible=!target.classList.contains("hidden");
+  const hit=visible && Math.hypot(cx-tx,cy-ty)<=r;
+  shots++;
+
+  if(hit){
+    hits++;
+    const m=$("mode").value;
+    if(m==="tracking"){
+      score+=8;
+    }else{
+      const rt=performance.now()-+target.dataset.since;
+      rts.push(rt);
+      score+=Math.max(10,1200-rt);
+      if(m==="reaction"){
+        clearTimeout(reaction._hideTimer);
+        target.classList.add("hidden");
+        reaction();
+      }else{
+        place(false);
+      }
+    }
+  }else if($("mode").value!=="tracking"){
+    score=Math.max(0,score-40);
+  }
+  stats();
+}
+
+function startContinuousFire(){
+  stopContinuousFire();
+  const mode=$("fireMode").value;
+  if(mode==="auto" || (mode==="hold" && leftHeld)){
+    doShot();
+    fireTimer=setInterval(doShot, +$("fireRate").value || 100);
+  }
+}
+
+function stopContinuousFire(){
+  if(fireTimer){clearInterval(fireTimer);fireTimer=0;}
+}
+
+arena.onmousedown=async e=>{
+  if(!run)return;
+
+  if(document.pointerLockElement!==arena){
+    try{
+      try{ await arena.requestPointerLock({unadjustedMovement:true}); }
+      catch(_){ await arena.requestPointerLock(); }
+    }catch(err){
+      msg.classList.remove("hidden");
+      msg.innerHTML="<h3>滑鼠鎖定失敗</h3><div class='small'>請允許瀏覽器鎖定滑鼠。Brave / Chrome / Edge 都支援 Pointer Lock；若被阻擋，請檢查網站權限或 Shields 設定。</div>";
+    }
+    return;
+  }
+
+  if(e.button===2){
+    adsHeld=true;
+    updateADSIndicator();
+    return;
+  }
+  if(e.button!==0)return;
+  leftHeld=true;
+
+  const mode=$("fireMode").value;
+  if(mode==="click"){
+    doShot();
+  }else if(mode==="hold"){
+    startContinuousFire();
+  }
+};
+
+arena.onmouseup=e=>{
+  if(e.button===2){
+    adsHeld=false;
+    updateADSIndicator();
+    return;
+  }
+  if(e.button!==0)return;
+  leftHeld=false;
+  if($("fireMode").value==="hold") stopContinuousFire();
+};
+
+document.addEventListener("mouseup",e=>{
+  if(e.button===0){
+    leftHeld=false;
+    if($("fireMode").value==="hold") stopContinuousFire();
+  }
+  if(e.button===2){
+    adsHeld=false;
+    updateADSIndicator();
+  }
+});
+
+arena.addEventListener("contextmenu",e=>e.preventDefault());
+
+function updateADSIndicator(){
+  const ind=$("adsState");
+  if(!ind)return;
+  if(adsHeld){
+    const a=parseFreeNumber("ads",1.0);
+    const o=parseFreeNumber("optic",1);
+    ind.textContent="ADS "+o+"×｜倍率 "+a;
+  }else{
+    ind.textContent="腰射";
+  }
+}
+document.addEventListener("pointerlockchange",()=>{
+  if(!run || $("mode").value==="dynamic")return;
+  if(document.pointerLockElement===arena){
+    msg.classList.add("hidden");
+    if(!startAt || performance.now()>=endAt){
+      startAt=performance.now();
+      endAt=startAt+(+$("duration").value*1000);
+      let m=$("mode").value;
+      if(m==="reaction")reaction();else place(m==="tracking");
+      if(m==="tracking") scheduleStrafeChange(performance.now());
+      last=performance.now();
+      loop(last);
+    }
+    if($("fireMode").value==="auto") startContinuousFire();
+  }else if(run && startAt){
+    adsHeld=false;updateADSIndicator();stopContinuousFire();
+    cancelAnimationFrame(raf);
+    clearTimeout(timer);
+    target.classList.add("hidden");
+    msg.classList.remove("hidden");
+    msg.innerHTML="<h3>已暫停</h3><div class='small'>點一下測試區域重新鎖定滑鼠並繼續。</div>";
+  }
+});
+
+
+function begin(){
+  if(run) return;
+
+  reset();
+  run=true;
+  startAt=0;
+  endAt=0;
+  adsHeld=false;
+  leftHeld=false;
+  stopContinuousFire();
+
+  clearTimeout(reaction._showTimer);
+  clearTimeout(reaction._hideTimer);
+  cancelAnimationFrame(raf);
+  clearTimeout(timer);
+
+  cx=arena.clientWidth/2;
+  cy=arena.clientHeight/2;
+  cross.style.left=cx+"px";
+  cross.style.top=cy+"px";
+
+  target.classList.add("hidden");
+  $("start").disabled=true;
+  $("stop").disabled=false;
+
+  if($("mode").value==="dynamic"){
+    document.exitPointerLock?.();
+    startDynamicVision();
+    return;
+  }
+
+  cross.style.display="";
+  msg.classList.remove("hidden");
+  msg.innerHTML="<h3>點一下測試區域</h3><div class='small'>點場地後鎖定滑鼠並開始測試。Esc 可解除鎖定。</div>";
+}
+
+$("start").onclick=begin;$("stop").onclick=finish;
+
+function records(){try{return JSON.parse(localStorage.getItem("apexLab")||"[]")}catch{return[]}}
+function save(r){let x=records();x.unshift(r);localStorage.setItem("apexLab",JSON.stringify(x.slice(0,60)));render()}
+function render(){let x=records();$("results").innerHTML=x.length?x.map(r=>"<div class='result'><span>"+r.mode+" · "+r.dpi+"×"+r.sens+"</span><span>"+r.score+" 分 · "+r.acc+"%</span></div>").join(""):"<div class='small' style='margin-top:8px'>還沒有紀錄。</div>"}
+render();
+$("clear").onclick=()=>{if(confirm("確定清除紀錄？")){localStorage.removeItem("apexLab");render()}};
+$("csv").onclick=()=>{let x=records();if(!x.length)return alert("目前沒有紀錄");let rows=[["date","mode","dpi","sens","ads","score","accuracy","avg_rt_ms"],...x.map(r=>[r.date,r.mode,r.dpi,r.sens,r.ads,r.score,r.acc,r.rt??""])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(",")).join("\n");let blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="apex-sensitivity-results.csv";a.click();URL.revokeObjectURL(u)};
+
+$("ab").onclick=()=>{if(run)return;let A=parseDecimalInput("a",0.30),B=parseDecimalInput("b",0.34);if(!(A>0&&B>0)||A===B)return alert("請輸入兩個不同靈敏度");abMode=true;abRound=0;abScores=[];abOrder=Math.random()<.5?[A,B]:[B,A];$("sens").value=abOrder[0];$("sens").style.webkitTextSecurity="disc";calc();$("abtxt").textContent="盲測第 1 / 2 輪：目前靈敏度已隱藏。";begin()};
+function nextAB(rec){abScores.push({...rec,secret:abOrder[abRound]});abRound++;if(abRound<2){$("sens").value=abOrder[1];calc();$("abtxt").textContent="盲測第 2 / 2 輪即將開始…";setTimeout(()=>{if(abMode&&!run)begin()},900)}else{abMode=false;$("sens").style.webkitTextSecurity="";let x=abScores[0],y=abScores[1],w=x.score===y.score?null:(x.score>y.score?x:y);$("sens").value=w?w.secret:x.secret;calc();$("abtxt").innerHTML="公布：第1輪 = "+x.secret+"（"+x.score+"分），第2輪 = "+y.secret+"（"+y.score+"分）。<br><b>"+(w?"較高分："+w.secret:"兩者平手")+"</b>"}}
+
+$("fireMode").onchange=()=>{
+  stopContinuousFire();
+  if(run && document.pointerLockElement===arena && $("fireMode").value==="auto") startContinuousFire();
+};
+$("fireRate").onchange=()=>{
+  if(run && document.pointerLockElement===arena){
+    if($("fireMode").value==="auto" || ($("fireMode").value==="hold" && leftHeld)) startContinuousFire();
+  }
+};
+
+
+function parseFreeNumber(id,fallback){
+  const raw=$(id).value.trim().replace(",",".");
+  const n=Number(raw);
+  return Number.isFinite(n)?n:fallback;
+}
+function parseDecimalInput(id,fallback){ return parseFreeNumber(id,fallback); }
+
+// All editable numeric fields are intentionally unrestricted.
+// We never clamp, round, rewrite, or auto-correct what the user types.
+["dpi","sens","ads","a","b"].forEach(id=>{
+  const el=$(id);
+  el.addEventListener("input",()=>{
+    if(id==="dpi" || id==="sens" || id==="ads") refreshAimMetrics();
+    if(id==="ads" && adsHeld) updateADSIndicator();
+  });
+});
+
+
+
+// v3.1: removed numeric-key debug shortcuts so typing 1/2/3 never changes sensitivity.
+
+function targetMoveScale(){
+  // Apex reference speeds supplied for this trainer:
+  // walking = 199, holstered/sprint = 299.
+  const gameSpeed=parseFreeNumber("moveSpeed",199);
+  return gameSpeed/199;
+}
+function refreshMoveSpeedLabel(){
+  const v=parseFreeNumber("moveSpeed",199);
+  if($("moveSpeedLabel")) $("moveSpeedLabel").textContent=v;
+}
+$("moveSpeed").addEventListener("change",refreshMoveSpeedLabel);
+refreshMoveSpeedLabel();
+
+
+const APEX_OPTIC_FOV_MULTI={
+  1:60/70,
+  2:42.424/70,
+  3:28.903/70,
+  4:21.847/70,
+  6:14.644/70,
+  8:11.004/70,
+  10:8.813/70
+};
+
+function apexHipFov43(){
+  const f=parseFreeNumber("fov",110);
+  return 70*(1+(f-70)*0.01375);
+}
+function apexAdsAngularScale(){
+  const optic=parseFreeNumber("optic",1);
+  const hip=apexHipFov43();
+  const multi=APEX_OPTIC_FOV_MULTI[optic] || (1/optic);
+  const scope=hip*multi;
+  const rad=Math.PI/360;
+  const focalScale=Math.tan(scope*rad)/Math.tan(hip*rad);
+  const ads=parseFreeNumber("ads",1);
+  return focalScale*ads;
+}
+function refreshAimMetrics(){
+  calc();
+  const dpi=parseFreeNumber("dpi",NaN);
+  const sens=parseFreeNumber("sens",NaN);
+  if($("adsEffective")){
+    const v=dpi*sens*apexAdsAngularScale();
+    $("adsEffective").textContent=Number.isFinite(v)?Math.round(v):"—";
+  }
+  if(adsHeld) updateADSIndicator();
+}
+["fov","optic"].forEach(id=>{
+  const el=$(id);
+  el.addEventListener("input",refreshAimMetrics);
+  el.addEventListener("change",refreshAimMetrics);
+});
+
+setTimeout(refreshAimMetrics,0);
+
+function scheduleStrafeChange(now){
+  // Change direction/timing irregularly, but keep it readable enough for tracking practice.
+  nextStrafeChange=now + 520 + Math.random()*1150;
+}
+function irregularTracking(now){
+  if(now < nextStrafeChange) return;
+
+  const w=arena.clientWidth, h=arena.clientHeight;
+  const nx=tx/w, ny=ty/h;
+  let dirX=Math.sign(vx || (Math.random()<0.5?-1:1));
+  let dirY=Math.sign(vy || (Math.random()<0.5?-1:1));
+
+  if(nx<0.18) dirX=1;
+  else if(nx>0.82) dirX=-1;
+  else if(Math.random()<0.30) dirX*=-1;
+
+  if(ny<0.18) dirY=1;
+  else if(ny>0.82) dirY=-1;
+  else if(Math.random()<0.28) dirY*=-1;
+
+  // Always rebuild from a fixed base. Randomness no longer compounds speed.
+  // targetMoveScale() separately applies 199 walking or 299 running.
+  const horizontalBase=115;
+  const verticalBase=42;
+  vx=dirX*horizontalBase*(0.90+Math.random()*0.20);
+  vy=dirY*verticalBase*(0.85+Math.random()*0.30);
+
+  nextStrafeChange=now+520+Math.random()*1150;
+}
+
+
+function responsiveTargetSize(){
+  const base=parseFreeNumber("size",48);
+  // Scale from a 1920×1080 reference using the smaller axis ratio,
+  // so the target keeps a similar visual proportion without becoming oversized.
+  const sx=arena.clientWidth/1920;
+  const sy=arena.clientHeight/1080;
+  const scale=Math.sqrt(Math.max(0.25,sx)*Math.max(0.25,sy));
+  // Moderate clamp keeps laptop/mobile-sized browser windows usable.
+  const safeScale=Math.max(0.72,Math.min(1.45,scale));
+  return base*safeScale;
+}
+function applyResponsiveTargetSize(){
+  const px=responsiveTargetSize();
+  target.style.width=px+"px";
+  target.style.height=px+"px";
+  if($("targetSizeNow")) $("targetSizeNow").textContent=Math.round(px)+" × "+Math.round(px)+" px";
+}
+$("size").addEventListener("change",applyResponsiveTargetSize);
+window.addEventListener("resize",applyResponsiveTargetSize);
+setTimeout(applyResponsiveTargetSize,0);
+
+</script>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const hosted = location.protocol === "https:" || location.hostname === "localhost";
+  if (!hosted) {
+    console.warn("建議透過 HTTPS / GitHub Pages 開啟，以取得較穩定的 Pointer Lock 行為。");
+  }
+});
+</script>
+
+
+<div style="position:fixed;right:14px;bottom:10px;z-index:9999;
+font-size:12px;opacity:.72;letter-spacing:.3px;pointer-events:none;
+background:rgba(0,0,0,.45);padding:5px 9px;border-radius:7px;
+backdrop-filter:blur(4px)">
+  作者｜Twitch 南宮搖光製作
+</div>
 
 </body>
 </html>
